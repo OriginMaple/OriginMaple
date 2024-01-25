@@ -13,11 +13,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+
 @Component
+// 로그인 프로세스가 실행시 AuthUserDetailsService 가 낚아챔
 public class AuthUserDetailsService implements UserDetailsService {
-    // 로그인 프로세스가 실행시 AuthUserDetailsService 가 낚아챔
-    @Autowired
-    AuthService authService;
+    private final AuthService authService;
+    public AuthUserDetailsService(AuthService authService) {
+        this.authService = authService;
+    }
+
+//@Component
+//public class AuthUserDetailsService implements UserDetailsService {
+//    // 로그인 프로세스가 실행시 AuthUserDetailsService 가 낚아챔
+//    @Autowired
+//    AuthService authService;
+
 
     @Override
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException{
