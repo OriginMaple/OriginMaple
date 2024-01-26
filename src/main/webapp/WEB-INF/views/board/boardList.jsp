@@ -12,5 +12,7 @@
 </head>
 <body>
 <h1>boardList</h1>
+<a href="/logout">logout</a>
+<a href="/auth/signup">signup</a>
 </body>
 </html>

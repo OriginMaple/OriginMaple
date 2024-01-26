@@ -17,7 +17,7 @@ import java.util.Date;
 public class BoardEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // 기본키 생성을 DB에 위임
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키 생성을 DB에 위임
     int boardIndex;
     @Column(nullable = false) // not null 조건
     String boardGrpIndex;

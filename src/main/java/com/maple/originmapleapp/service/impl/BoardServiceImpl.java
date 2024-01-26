@@ -16,13 +16,12 @@ import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
+    private final BoardRepository boardRepository;
 
-    @Autowired
-    BoardRepository boardRepository;
-
-    @Autowired
+    public BoardServiceImpl(BoardRepository boardRepository) {
+        this.boardRepository = boardRepository;
+    }
 
 
     @Override
@@ -32,6 +31,13 @@ public class BoardServiceImpl implements BoardService {
         return boardEntity;
     }
 
+    @Override
+    public BoardEntity boardInsert(BoardEntity boardEntity) {
+
+        BoardEntity insertBoard = boardRepository.save(boardEntity);
+
+        return insertBoard;
+    }
 
 
 }

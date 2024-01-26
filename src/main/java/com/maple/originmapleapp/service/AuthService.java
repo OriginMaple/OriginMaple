@@ -8,4 +8,6 @@ import java.util.Optional;
 @Service
 public interface AuthService {
     Optional<MemberEntity> login(String meberId);
+
+    MemberEntity signup(MemberEntity memberEntity);
 }

@@ -10,6 +10,6 @@ import java.util.List;
 public interface BoardService {
     List<BoardEntity> getBoardListAll();
 
-
+    BoardEntity boardInsert(BoardEntity boardEntity);
 
 }

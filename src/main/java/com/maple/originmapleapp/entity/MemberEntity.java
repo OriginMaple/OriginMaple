@@ -9,6 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -20,29 +21,26 @@ public class MemberEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키 생성을 DB에 위임
-    int memberIndex;
-    String memberId;
+    private int memberIndex;
+    private String memberId;
     @Column(nullable = false) // not null 조건
-    String memberName;
+    private String memberName;
+    private String memberRole;
     @Column(nullable = false)
-    String memberRole;
-    @Column(nullable = false)
-    String memberPw;
+    private String memberPw;
     @Column(nullable = false ,unique = true) // not null 조건 unique 옵션
-    String memberEmail;
-    @Column(nullable = false)
-    @ColumnDefault("N") // default 옵션
-    String memberIsBlack;
+    private String memberEmail;
+    private String memberIsBlack;
     @CreationTimestamp
-    Date memberDate;
+    private LocalDateTime memberDate;
     @UpdateTimestamp
-    Date memberModDate;
+    private LocalDateTime memberModDate;
     @UpdateTimestamp
-    Date memberBlackDate;
+    private LocalDateTime memberBlackDate;
     @Column(nullable = false)
-    String memberProviderType;
+    private String memberProviderType;
 
-    public MemberEntity(int memberIndex, String memberId, String memberName, String memberRole, String memberPw, String memberEmail, String memberIsBlack, Date memberDate, Date memberModDate, Date memberBlackDate, String memberProviderType) {
+    public MemberEntity(int memberIndex, String memberId, String memberName, String memberRole, String memberPw, String memberEmail, String memberIsBlack, LocalDateTime memberDate, LocalDateTime memberModDate, LocalDateTime memberBlackDate, String memberProviderType) {
         this.memberIndex = memberIndex;
         this.memberId = memberId;
         this.memberName = memberName;
@@ -55,4 +53,20 @@ public class MemberEntity {
         this.memberBlackDate = memberBlackDate;
         this.memberProviderType = memberProviderType;
     }
+
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.memberDate = now;
+        this.memberModDate = now;
+        this.memberBlackDate = now;
+
+        if(memberProviderType == null){
+            this.memberProviderType = "N";
+        }else{
+            this.memberProviderType = memberProviderType;
+        }
+
+    }
+
 }

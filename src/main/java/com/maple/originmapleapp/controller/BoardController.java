@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -18,8 +19,12 @@ import java.util.List;
 //@RequestMapping("/board")
 public class BoardController {
 
-    @Autowired
-    BoardService boardService;
+    private final BoardService boardService;
+
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
+
     // View
     @GetMapping({"/","/board/list"})
     public String board(){
@@ -32,6 +37,15 @@ public class BoardController {
         List<BoardEntity> getBoardListAll = boardService.getBoardListAll();
         System.out.println("나실행함?");
         return new ResponseEntity<>(new DefaultResponse<>(1, "성공", getBoardListAll),HttpStatus.OK);
+    }
+
+    @PostMapping("/board/insert")
+    public ResponseEntity<DefaultResponse<Object>> boardInsert(@RequestBody BoardDto boardDto) throws Exception{
+
+        BoardEntity data = boardDto.toEntity(boardDto);
+        BoardEntity boardInsert = boardService.boardInsert(data);
+        System.out.println("나실행함?");
+        return new ResponseEntity<>(new DefaultResponse<>(1 , "성공", boardInsert),HttpStatus.OK);
     }
 
 

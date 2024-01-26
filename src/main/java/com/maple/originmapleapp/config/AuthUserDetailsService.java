@@ -22,13 +22,6 @@ public class AuthUserDetailsService implements UserDetailsService {
         this.authService = authService;
     }
 
-//@Component
-//public class AuthUserDetailsService implements UserDetailsService {
-//    // 로그인 프로세스가 실행시 AuthUserDetailsService 가 낚아챔
-//    @Autowired
-//    AuthService authService;
-
-
     @Override
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException{
         Optional<MemberEntity> findOne = authService.login(memberId);

@@ -11,11 +11,18 @@ import java.util.Optional;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
-    AuthRepository authRepository;
+    private final AuthRepository authRepository;
+
+    public AuthServiceImpl(AuthRepository authRepository) {
+        this.authRepository = authRepository;
+    }
 
     @Override
     public Optional<MemberEntity> login(String meberId) {
         return authRepository.findById(meberId);
     };
+
+    public MemberEntity signup (MemberEntity memberEntity){
+        return authRepository.save(memberEntity);
+    }
 }
