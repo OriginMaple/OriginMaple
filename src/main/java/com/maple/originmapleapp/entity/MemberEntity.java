@@ -5,12 +5,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -61,10 +59,13 @@ public class MemberEntity {
         this.memberModDate = now;
         this.memberBlackDate = now;
 
+        // 해당 내용은 추후 수정 필요
+        if(memberRole == null){
+            this.memberRole = "N";
+        }
+        // 해당 내용은 추후 수정 필요
         if(memberProviderType == null){
             this.memberProviderType = "N";
-        }else{
-            this.memberProviderType = memberProviderType;
         }
 
     }

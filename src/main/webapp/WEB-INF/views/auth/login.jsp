@@ -15,8 +15,8 @@
 
                         <!-- 로그인 인풋 -->
                         <form class="login__input" action="/auth/login.process" method="POST">
-                            <input type="text" name="member_email" id="member_email" placeholder="이메일" required="required" value="test@test.com"/>
-                            <input type="password" name="member_pw" id="member_pw" placeholder="비밀번호" required="required" value="123"/>
+                            <input type="text" name="member_email" id="member_email" placeholder="이메일" required="required"/>
+                            <input type="password" name="member_pw" id="member_pw" placeholder="비밀번호" required="required"/>
                             <!-- 버튼에 ID 추가 -->
                             <button>로그인</button>
                         </form>

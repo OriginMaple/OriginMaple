@@ -1,6 +1,5 @@
 package com.maple.originmapleapp.service;
 
-import com.maple.originmapleapp.dto.BoardDto;
 import com.maple.originmapleapp.entity.BoardEntity;
 import org.springframework.stereotype.Service;
 

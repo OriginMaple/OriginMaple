@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -19,8 +18,10 @@ public class AuthController {
 
     private final AuthService authService;
 
-    public AuthController(AuthService authService) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    public AuthController(AuthService authService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.authService = authService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     @GetMapping("/login")
     public String login(){
@@ -35,11 +36,11 @@ public class AuthController {
     // 회원가입
     @PostMapping("/signup.process")
     public ResponseEntity<DefaultResponse<Object>> signUpJson(@RequestBody MemberDto memberDto) throws Exception {
-        // 패스워드 암호화
 
         System.out.println("실행됨?");
-//        String encPassword = bCryptPasswordEncoder.encode(memberDto.getMemberPw());
-//        memberDto.setMemberPw(encPassword);
+        // 패스워드 암호화
+        String encPassword = bCryptPasswordEncoder.encode(memberDto.getMemberPw());
+        memberDto.setMemberPw(encPassword);
 
         MemberEntity memberEntity = memberDto.toEntity(memberDto);
             try {

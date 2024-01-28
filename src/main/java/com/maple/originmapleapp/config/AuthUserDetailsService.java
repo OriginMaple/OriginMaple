@@ -1,10 +1,7 @@
 package com.maple.originmapleapp.config;
 
-import com.maple.originmapleapp.dao.AuthDao;
-import com.maple.originmapleapp.dto.MemberDto;
 import com.maple.originmapleapp.entity.MemberEntity;
 import com.maple.originmapleapp.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,8 +20,10 @@ public class AuthUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException{
-        Optional<MemberEntity> findOne = authService.login(memberId);
+    public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException{
+        Optional<MemberEntity> findOne = authService.login(memberEmail);
+
+        System.out.println(findOne);
 
         MemberEntity memberEntity = findOne.orElseThrow(() -> new UsernameNotFoundException("존재하지 않는 회원입니다."));
 
