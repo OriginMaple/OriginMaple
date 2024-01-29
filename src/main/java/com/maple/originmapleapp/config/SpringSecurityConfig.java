@@ -28,7 +28,7 @@ public class SpringSecurityConfig {
             .formLogin(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(request -> request
                     .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                    .requestMatchers("/auth/login", "/auth/signup", "/board/**", "/", "/auth/signup.process").permitAll()
+                    .requestMatchers("/auth/login", "/auth/signup", "/board/**", "/" ,"/css/**").permitAll()
                     .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
