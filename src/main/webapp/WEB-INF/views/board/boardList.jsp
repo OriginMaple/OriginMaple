@@ -7,6 +7,6 @@
         
     </head>
         <%@ include file="/WEB-INF/views/layout/header.jsp" %>
-        <%@ include file="/WEB-INF/views/board/boardBody.jsp" %>
+        <%@ include file="/WEB-INF/views/board/boardMainBody.jsp" %>
         <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
     </html>

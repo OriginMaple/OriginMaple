@@ -2,6 +2,7 @@ package com.maple.originmapleapp.controller;
 
 
 import com.maple.originmapleapp.dto.MemberDto;
+import com.maple.originmapleapp.dto.JwtToken;
 import com.maple.originmapleapp.dto.response.DefaultResponse;
 import com.maple.originmapleapp.entity.MemberEntity;
 import com.maple.originmapleapp.service.AuthService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 @CrossOrigin
@@ -33,18 +35,23 @@ public class AuthController {
         return "auth/signup";
     }
 
+    @GetMapping("/admin")
+    public String admin(){
+        return "/";
+    }
+//
+//    // 로그인 JWT
+//    @PostMapping("/auth/login.process")
+//    public JwtToken login(@RequestBody MemberDto memberDto){
+//
+//        return authService.login(memberDto);
+//    }
+
     // 회원가입
-    @PostMapping("/signup.process")
-    public ResponseEntity<DefaultResponse<Object>> signUpJson(@RequestBody MemberDto memberDto) throws Exception {
-
-        System.out.println("실행됨?");
-        // 패스워드 암호화
-        String encPassword = bCryptPasswordEncoder.encode(memberDto.getMemberPw());
-        memberDto.setMemberPw(encPassword);
-
-        MemberEntity memberEntity = memberDto.toEntity(memberDto);
+    @PostMapping("/auth/signup.process")
+    public ResponseEntity<DefaultResponse<Object>> signUp(@RequestBody MemberDto memberDto){
             try {
-                authService.signup(memberEntity);
+                authService.signup(memberDto);
                 return new ResponseEntity<>(new DefaultResponse<>(1,"성공"),HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(new DefaultResponse<>(-1, e.getMessage() ),HttpStatus.BAD_REQUEST);
