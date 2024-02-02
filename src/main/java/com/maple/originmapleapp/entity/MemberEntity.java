@@ -52,6 +52,12 @@ public class MemberEntity {
         this.memberProviderType = memberProviderType;
     }
 
+    public MemberEntity(String memberName, String memberRole, String memberPw) {
+        this.memberName = memberName;
+        this.memberRole = memberRole;
+        this.memberPw = memberPw;
+    }
+
     @PrePersist
     public void prePersist() {
         LocalDateTime now = LocalDateTime.now();

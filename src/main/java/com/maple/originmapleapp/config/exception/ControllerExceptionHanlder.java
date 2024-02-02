@@ -1,7 +1,7 @@
-package com.maple.originmapleapp.exception;
+package com.maple.originmapleapp.config.exception;
 
-import com.maple.originmapleapp.exception.exceptionList.CustomApiException;
-import com.maple.originmapleapp.exception.exceptionList.CustomValidationException;
+import com.maple.originmapleapp.config.exception.exceptionList.CustomApiException;
+import com.maple.originmapleapp.config.exception.exceptionList.CustomValidationException;
 import com.maple.originmapleapp.dto.response.DefaultResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

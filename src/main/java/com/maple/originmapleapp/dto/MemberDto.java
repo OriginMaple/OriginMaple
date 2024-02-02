@@ -23,7 +23,7 @@ public class MemberDto {
     String memberProviderType;
 
 
-    public MemberEntity toEntity(MemberDto memberDto){
+    public MemberEntity toEntity(){
         return MemberEntity.builder()
                 .memberIndex(memberIndex)
                 .memberId(memberId)

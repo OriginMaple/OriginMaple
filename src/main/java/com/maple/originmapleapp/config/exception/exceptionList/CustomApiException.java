@@ -1,4 +1,4 @@
-package com.maple.originmapleapp.exception.exceptionList;
+package com.maple.originmapleapp.config.exception.exceptionList;
 
 public class CustomApiException extends RuntimeException{
 
