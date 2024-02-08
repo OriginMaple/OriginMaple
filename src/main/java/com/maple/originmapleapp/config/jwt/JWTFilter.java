@@ -45,6 +45,7 @@ public class JWTFilter extends OncePerRequestFilter {
         String token = authorization.split(" ")[1];
 
         //토큰 소멸 시간 검증
+        // 토큰 소멸시간 체크하는 부분에서 에러발생
         if (jwtUtil.isExpired(token)) {
 
             System.out.println("token expired");
@@ -54,13 +55,10 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        //토큰에서 username과 role 획득
         String username = jwtUtil.getUsername(token);
         String role = jwtUtil.getRole(token);
 
-        //userEntity를 생성하여 값 set
-
-        MemberEntity memberEntity = new MemberEntity(username,"temppassword", role);
+        MemberEntity memberEntity = new MemberEntity(username,role,"123");
 
         //UserDetails에 회원 정보 객체 담기
         CustomUserDetails customUserDetails = new CustomUserDetails(memberEntity);

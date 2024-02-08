@@ -1,4 +1,5 @@
 package com.maple.originmapleapp.config;
+import com.maple.originmapleapp.config.jwt.JWTFilter;
 import com.maple.originmapleapp.config.jwt.JWTUtil;
 import com.maple.originmapleapp.config.jwt.LoginFilter;
 import jakarta.servlet.DispatcherType;
@@ -44,21 +45,27 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-
+        http.cors(AbstractHttpConfigurer::disable);
         http.csrf(AbstractHttpConfigurer::disable);
         http.formLogin(AbstractHttpConfigurer::disable);
         http.httpBasic(AbstractHttpConfigurer::disable);
-        http.authorizeHttpRequests((auth) -> auth
-            .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-            // 해당 경로는 모든 권한의 접근을 허용 합니다.
-            .requestMatchers(HttpMethod.GET, "/auth/login", "/auth/signup", "/board/**", "/", "/css/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyRole("ADMIN")
-            .anyRequest().authenticated());
 
+        http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http.authorizeHttpRequests((auth) -> auth
+//            .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+            // 해당 경로는 모든 권한의 접근을 허용 합니다.
+            .requestMatchers("/auth/login" ,"/auth/signup","/auth/signup.process" ,"/board/**", "/", "/css/**", "/**").permitAll()
+            // 해당 경로는 ADMIN 권한만 접근 허용 합니다.
+            .requestMatchers(HttpMethod.GET, "/admin/**").hasAnyRole("ADMIN")
+            .anyRequest().hasRole("USER"));
+
+        http.addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
         //AuthenticationManager()와 JWTUtil 인수 전달
         http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
-        http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+
 
         return http.build();
     }

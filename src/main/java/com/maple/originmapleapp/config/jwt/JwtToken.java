@@ -1,4 +1,4 @@
-package com.maple.originmapleapp.dto;
+package com.maple.originmapleapp.config.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
