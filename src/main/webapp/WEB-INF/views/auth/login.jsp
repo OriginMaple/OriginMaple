@@ -19,7 +19,7 @@
                         <!-- 로그인 인풋 -->
                         <div class="login__input" action="/login" method="POST">
                             <input type="text" name="username" id="username" placeholder="이메일" required="required"/>
-                            <input type="password" name="passowrd" id="passowrd" placeholder="비밀번호" required="required"/>
+                            <input type="password" name="password" id="password" placeholder="비밀번호" required="required"/>
                             <!-- 버튼에 ID 추가 -->
                             <button id = "loginButton">로그인</button>
                         </div>
@@ -66,15 +66,12 @@
 
            function login() {
                let url = "/login";
-               let username = $("#username").val();
-               let password = $("#password").val();
                $.ajax({
                    type: "POST",
                    url: url,
-                   contentType: "application/json",
                    data: {
-                            username : username,
-                            password : password 
+                            username : $("#username").val(),
+                            password : $("#password").val()
                          },
                    success: function (response) {
                        alert("성공");
