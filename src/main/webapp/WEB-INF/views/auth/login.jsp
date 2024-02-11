@@ -14,12 +14,12 @@
                     <div class="login__form">
 
                         <!-- 로그인 인풋 -->
-                        <form class="login__input" action="/login" method="POST">
-                            <input type="text" name="member_email" id="member_email" placeholder="이메일" required="required"/>
-                            <input type="password" name="member_pw" id="member_pw" placeholder="비밀번호" required="required"/>
+                        <div class="login__input" action="/login" method="POST">
+                            <input type="text" name="username" id="username" placeholder="이메일" required="required"/>
+                            <input type="password" name="password" id="password" placeholder="비밀번호" required="required"/>
                             <!-- 버튼에 ID 추가 -->
-                            <button>로그인</button>
-                        </form>
+                            <button id="loginButton">로그인</button>
+                        </div>
                         <!-- 로그인 인풋 end -->
 
                         <!-- 또는 -->
@@ -53,5 +53,43 @@
             </section>
         </main>
     </div>
+    <script>
+            $(document).ready(function () {
+                $("#loginButton").click(function () {
+                    login();
+                });
+            });
+
+           function login() {
+               let url = "/login";
+
+               let memberDto = {
+                   memberName: $("#username").val(),
+                   memberPw: $("#password").val(),
+                   memberEmail: $("#email").val()
+               };
+
+               $.ajax({
+                   type: "POST",
+                   url: url,
+                //    contentType: "application/json",
+                //    data: JSON.stringify(memberDto),
+                    data:{
+                        username: $("#username").val(),
+                        password: $("#password").val()
+                    },
+                   success: function (response) {
+                       alert("성공");
+                       $("#result").html(response.message);
+                       window.location.href = "/";
+                   },
+                   error: function (xhr, textStatus, errorThrown) {
+                       console.error("에러:", textStatus, errorThrown);
+                   }
+               });
+            }
+        </script>
+
+
 </body>
 </html>

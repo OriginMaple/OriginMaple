@@ -39,13 +39,6 @@ public class AuthController {
     public String admin(){
         return "/";
     }
-//
-//    // 로그인 JWT
-//    @PostMapping("/auth/login.process")
-//    public JwtToken login(@RequestBody MemberDto memberDto){
-//
-//        return authService.login(memberDto);
-//    }
 
     // 회원가입
     @PostMapping("/auth/signup.process")
