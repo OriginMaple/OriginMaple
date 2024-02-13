@@ -9,7 +9,6 @@ import java.util.Optional;
 @Repository
 public interface AuthRepository extends JpaRepository<MemberEntity, Integer> {
     Boolean existsBymemberEmail(String memberEmail);
-    MemberEntity findBymemberName(String memberName);
 
     MemberEntity findBymemberEmail(String memberEmail);
 

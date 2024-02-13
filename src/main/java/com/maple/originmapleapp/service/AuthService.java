@@ -7,7 +7,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AuthService {
-    JwtToken login(MemberDto memberDto);
-
     MemberEntity signup(MemberDto memberDto);
 }

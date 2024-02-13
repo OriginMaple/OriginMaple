@@ -1,7 +1,6 @@
 package com.maple.originmapleapp.config.jwt;
 
 import com.maple.originmapleapp.config.CustomUserDetails;
-import com.maple.originmapleapp.dto.MemberDto;
 import com.maple.originmapleapp.entity.MemberEntity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,7 +18,6 @@ public class JWTFilter extends OncePerRequestFilter {
     private final JWTUtil jwtUtil;
 
     public JWTFilter(JWTUtil jwtUtil) {
-
         this.jwtUtil = jwtUtil;
     }
 

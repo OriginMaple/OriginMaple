@@ -8,6 +8,7 @@ import com.maple.originmapleapp.dto.MemberDto;
 import com.maple.originmapleapp.dto.response.DefaultResponse;
 import com.maple.originmapleapp.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,15 +18,14 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @CrossOrigin
+@RequiredArgsConstructor
 //@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthService authService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    public AuthController(AuthService authService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.authService = authService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+
+
     @GetMapping("/auth/login")
     public String login(){
         return "auth/login";
@@ -41,12 +41,6 @@ public class AuthController {
         return "admin/admin";
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<JwtToken> loginProcess(@RequestBody MemberDto memberDto){
-        String name = memberDto.getMemberName();
-        System.out.println(name);
-        return null;
-    }
     // 회원가입
     @PostMapping("/auth/signup.process")
     public ResponseEntity<DefaultResponse<Object>> signUp(@RequestBody MemberDto memberDto){
