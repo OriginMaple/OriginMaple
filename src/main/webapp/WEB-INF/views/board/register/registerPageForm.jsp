@@ -21,7 +21,7 @@
                 width: 90%;
             }
         }
-    </style>
+    </style><!-- abcd -->
 </head>
 <body>
     <h1 style="text-align:center;">registerPage</h1>
