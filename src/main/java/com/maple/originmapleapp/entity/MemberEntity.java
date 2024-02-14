@@ -1,10 +1,12 @@
 package com.maple.originmapleapp.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -21,13 +23,16 @@ public class MemberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키 생성을 DB에 위임
     private int memberIndex;
     private String memberId;
-    @Column(nullable = false) // not null 조건
+    @NotBlank// not null 조건
     private String memberName;
+    @NotBlank
     private String memberRole;
-    @Column(nullable = false)
+    @NotBlank
     private String memberPw;
-    @Column(nullable = false ,unique = true) // not null 조건 unique 옵션
+    @NotBlank
+    @Column(unique = true) // not null 조건 unique 옵션
     private String memberEmail;
+    // 블랙리스트 여부
     private String memberIsBlack;
     @CreationTimestamp
     private LocalDateTime memberDate;
@@ -35,7 +40,7 @@ public class MemberEntity {
     private LocalDateTime memberModDate;
     @UpdateTimestamp
     private LocalDateTime memberBlackDate;
-    @Column(nullable = false)
+    @NotBlank // 소셜 / 로컬 회원 구분값
     private String memberProviderType;
 
     public MemberEntity(int memberIndex, String memberId, String memberName, String memberRole, String memberPw, String memberEmail, String memberIsBlack, LocalDateTime memberDate, LocalDateTime memberModDate, LocalDateTime memberBlackDate, String memberProviderType) {
@@ -67,13 +72,12 @@ public class MemberEntity {
 
         // 해당 내용은 추후 수정 필요
         if(memberRole == null){
-            this.memberRole = "N";
+            this.memberRole = "IS_ROLE_USER";
         }
-        // 해당 내용은 추후 수정 필요
+        // 홈페이지 회원가입자는 기본값을 Local 로 부여 , 추후 소셜로그인시 해당 값을 전달해야함.
         if(memberProviderType == null){
-            this.memberProviderType = "N";
+            this.memberProviderType = "Local";
         }
-
     }
 
 }

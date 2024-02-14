@@ -26,8 +26,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String memberName) throws UsernameNotFoundException {
-        MemberEntity memberEntity = authRepository.findBymemberName(memberName);
+    public UserDetails loadUserByUsername(String memberEmail) throws UsernameNotFoundException {
+        MemberEntity memberEntity = authRepository.findBymemberEmail(memberEmail);
         if (memberEntity != null){
             return new CustomUserDetails(memberEntity);
         }

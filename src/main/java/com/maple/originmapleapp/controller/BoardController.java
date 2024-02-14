@@ -44,5 +44,14 @@ public class BoardController {
         return new ResponseEntity<>(new DefaultResponse<>(1 , "성공", boardInsert),HttpStatus.OK);
     }
 
+    @GetMapping("/board/registerPage")
+    public String registerPage(){
+        return"board/register/registerPage";
+    }
+
+    @GetMapping("/board/registerDetail")
+    public String registerDetail(){
+        return"board/register/registerDetail";
+    }
 
 }

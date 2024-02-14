@@ -17,11 +17,7 @@ public class MemberDto {
     String memberPw;
     String memberEmail;
     String memberIsBlack;
-//    Date memberDate;
-//    Date memberModDate;
-//    Date memberBlackDate;
     String memberProviderType;
-
 
     public MemberEntity toEntity(){
         return MemberEntity.builder()
@@ -32,9 +28,6 @@ public class MemberDto {
                 .memberPw(memberPw)
                 .memberEmail(memberEmail)
                 .memberIsBlack(memberIsBlack)
-//                .memberDate(memberDate)
-//                .memberModDate(memberModDate)
-//                .memberBlackDate(memberBlackDate)
                 .memberProviderType(memberProviderType)
                 .build();
     }
