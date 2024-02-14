@@ -21,7 +21,9 @@
                             <input type="text" name="username" id="username" placeholder="이메일" required="required"/>
                             <input type="password" name="password" id="password" placeholder="비밀번호" required="required"/>
                             <!-- 버튼에 ID 추가 -->
+
                             <button id = "loginButton">로그인</button>
+
                         </div>
                         <!-- 로그인 인풋 end -->
 
@@ -56,7 +58,7 @@
             </section>
         </main>
     </div>
-
+  
     <script>
             $(document).ready(function () {
                 $("#loginButton").click(function () {
@@ -83,8 +85,6 @@
                    }
                });
             }
-         </script>
-
-
+        </script>
 </body>
 </html>
