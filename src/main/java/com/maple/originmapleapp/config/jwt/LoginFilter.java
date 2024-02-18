@@ -2,6 +2,7 @@ package com.maple.originmapleapp.config.jwt;
 
 import com.maple.originmapleapp.config.CustomUserDetails;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     public static final long JWT_TOKEN_VALIDITY = (long) ((1 * 60 * 60) / 60) * 60; //토큰의 유효시간 설정, 기본 60분
     private final AuthenticationManager authenticationManager;
-    private final JWTUtil jwtUtil;
+    private final TokenProvider tokenProvider;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -50,9 +51,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         LocalDate now = LocalDate.now();
 
         System.out.println(now);
-        String token = jwtUtil.createJwt(username, role, JWT_TOKEN_VALIDITY);
 
-        response.addHeader("Authorization", "Bearer " + token);
+        String token = tokenProvider.createJwt(username, role, JWT_TOKEN_VALIDITY);
+
+        response.addHeader("Authorization",token);
     }
 
     @Override

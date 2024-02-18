@@ -1,13 +1,9 @@
 package com.maple.originmapleapp.controller;
 
 
-import com.maple.originmapleapp.config.jwt.JWTFilter;
-import com.maple.originmapleapp.config.jwt.JWTUtil;
-import com.maple.originmapleapp.config.jwt.JwtToken;
 import com.maple.originmapleapp.dto.MemberDto;
 import com.maple.originmapleapp.dto.response.DefaultResponse;
 import com.maple.originmapleapp.service.AuthService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

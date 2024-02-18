@@ -1,7 +1,8 @@
 package com.maple.originmapleapp.config;
 import com.maple.originmapleapp.config.jwt.JWTFilter;
-import com.maple.originmapleapp.config.jwt.JWTUtil;
+import com.maple.originmapleapp.config.jwt.TokenProvider;
 import com.maple.originmapleapp.config.jwt.LoginFilter;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SpringSecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final JWTUtil jwtUtil;
+    private final TokenProvider tokenProvider;
 
 
 
@@ -48,6 +49,7 @@ public class SpringSecurityConfig {
             "/css/**",
             "/logout",
             "/layout/**",
+            "/resources/**"
     };
 
     private static final String [] ADMIN = {
@@ -69,9 +71,9 @@ public class SpringSecurityConfig {
             // 해당 경로는 ADMIN 권한만 접근 허용 합니다.
             .requestMatchers(ADMIN).hasRole("ADMIN")
             .anyRequest().authenticated());
-        http.addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
+        http.addFilterBefore(new JWTFilter(tokenProvider), LoginFilter.class);
         //AuthenticationManager()와 JWTUtil 인수 전달
-        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), tokenProvider), UsernamePasswordAuthenticationFilter.class);
         http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();

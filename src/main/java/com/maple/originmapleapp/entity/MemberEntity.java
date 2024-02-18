@@ -57,10 +57,9 @@ public class MemberEntity {
         this.memberProviderType = memberProviderType;
     }
 
-    public MemberEntity(String memberName, String memberRole, String memberPw) {
+    public MemberEntity(String memberName, String memberRole) {
         this.memberName = memberName;
         this.memberRole = memberRole;
-        this.memberPw = memberPw;
     }
 
     @PrePersist

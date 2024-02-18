@@ -4,16 +4,14 @@
     <title>header</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
         <!-- jquery -->
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <link href="/css/header.css?after" rel="stylesheet" type="text/css">
+       
     </head>
     <title>header</title>
 </head>
@@ -26,6 +24,7 @@
                         <button class="custom-btn btn-6"><a href="/auth/signup">회원가입 </a></button>
                         <button class="custom-btn btn-6"><a href="/logout">로그아웃 </a></button>
                         <button class="custom-btn btn-6"><a href="/auth/login">로그인 </a></button>
+                        <button class="custom-btn btn-6" id = "adminTest">admin</button>
                     </div>
                  <ul>
                     <li><a href="/">홈</a></li>
@@ -67,3 +66,13 @@
         </nav>
     </body>
 </html>
+<script type="text/javascript" src="/src/main/resources/static/js/common.js" >
+      $(document).ready(function () {
+                let Jwt = getCookieValue('Authorization');
+                console.log(Jwt);
+                $("#adminTest").click(function () {
+                    admin(Jwt);
+                });
+            });
+
+</script> 

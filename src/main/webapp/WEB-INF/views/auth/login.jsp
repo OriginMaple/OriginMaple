@@ -60,24 +60,50 @@
     </div>
   
     <script>
+    const getCookieValue = (key) => {
+      let cookieKey = key + "=";
+      let result = "";
+      const cookieArr = document.cookie.split(";");
+
+      for(let i = 0; i < cookieArr.length; i++) {
+        if(cookieArr[i][0] === " ") {
+          cookieArr[i] = cookieArr[i].substring(1);
+        }
+
+        if(cookieArr[i].indexOf(cookieKey) === 0) {
+          result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+          return result;
+        }
+      }
+      return result;
+    }
+    
             $(document).ready(function () {
+                let Jwt = getCookieValue('Authorization');
                 $("#loginButton").click(function () {
-                    login();
+                    login(Jwt);
                 });
             });
 
-           function login() {
+           function login(jwt) {
                let url = "/login";
                $.ajax({
                    type: "POST",
                    url: url,
+                   headers: {
+                        'Authorization': jwt
+                    },
                    data: {
                             username : $("#username").val(),
                             password : $("#password").val()
                          },
-                   success: function (response) {
+                   success: function (data, textStatus, xhr) {
                        alert("성공");
-                       $("#result").html(response.message);
+                       var authorizationHeader = xhr.getResponseHeader('Authorization');
+
+                       // 쿠키에 값 설정
+                       document.cookie = 'Authorization=' + authorizationHeader + '; path=/;';
+                       
                        window.location.href = "/";
                    },
                    error: function (xhr, textStatus, errorThrown) {

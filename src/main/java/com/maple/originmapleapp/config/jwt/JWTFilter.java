@@ -4,6 +4,7 @@ import com.maple.originmapleapp.config.CustomUserDetails;
 import com.maple.originmapleapp.entity.MemberEntity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,13 +13,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JWTFilter extends OncePerRequestFilter {
 
-    private final JWTUtil jwtUtil;
+    private final TokenProvider tokenProvider;
 
-    public JWTFilter(JWTUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
+    public JWTFilter(TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
     }
 
 
@@ -28,7 +31,7 @@ public class JWTFilter extends OncePerRequestFilter {
         //request에서 Authorization 헤더를 찾음
         String authorization= request.getHeader("Authorization");
 
-        //Authorization 헤더 검증
+//        Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
 
             System.out.println("token null");
@@ -43,8 +46,7 @@ public class JWTFilter extends OncePerRequestFilter {
         String token = authorization.split(" ")[1];
 
         //토큰 소멸 시간 검증
-        // 토큰 소멸시간 체크하는 부분에서 에러발생
-        if (jwtUtil.isExpired(token)) {
+        if (tokenProvider.isExpired(token)) {
 
             System.out.println("token expired");
             filterChain.doFilter(request, response);
@@ -53,10 +55,10 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
-        String username = jwtUtil.getUsername(token);
-        String role = jwtUtil.getRole(token);
+        String username = tokenProvider.getUsername(token);
+        String role = tokenProvider.getRole(token);
 
-        MemberEntity memberEntity = new MemberEntity(username,role,"123");
+        MemberEntity memberEntity = new MemberEntity(username,role);
 
         //UserDetails에 회원 정보 객체 담기
         CustomUserDetails customUserDetails = new CustomUserDetails(memberEntity);
@@ -68,4 +70,6 @@ public class JWTFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
+
 }
