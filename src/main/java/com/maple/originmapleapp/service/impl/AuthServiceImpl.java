@@ -1,7 +1,6 @@
 package com.maple.originmapleapp.service.impl;
 
 
-import com.maple.originmapleapp.config.jwt.JwtToken;
 import com.maple.originmapleapp.dto.MemberDto;
 import com.maple.originmapleapp.entity.MemberEntity;
 import com.maple.originmapleapp.repository.AuthRepository;
